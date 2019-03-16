@@ -7,8 +7,8 @@
 
    Crossword Puzzle Script
    
-   Author: 
-   Date:   
+   Author: Christian Gregorio
+    Date:   3.15.19 
    
    Global Variables
    ================
@@ -49,18 +49,45 @@
 
 */
 
+// global variables
+var allLetters;
+var currentLetter;
+var wordLetters;
+var acrossClue;
+var downClue;
+var typeDirection;
 
+window.onload = init;
 
+// Initializes the puzzle, setting up the event handlers and the variable values
+function init() {
+      allLetters = document.querySelectorAll("table#crossword span");
+      currentLetter = allLetters[0];
+      var acrossID = currentLetter.dataset.clueA;
+      var downID = currentLetter.dataset.clueD;
+      acrossClue = ;
+      downClue = ;
+}
 
+// Formats the appearance of the puzzle given the selected puzzle letter
+// function formatPuzzle(puzzleLetter){
 
-   
+// }
 
+// Applies keyboard actions to select a letter or modify the puzzle navigation
+// function selectLetter(e){
 
+// }
+
+// Toggles the typing direction between right and down
+// function switchTypeDirection(){
+
+// }
 
 
 
 /*====================================================*/
 
 function getChar(keyNum) {
-   return String.fromCharCode(keyNum);
+      return String.fromCharCode(keyNum);
 }
