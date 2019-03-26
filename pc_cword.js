@@ -65,14 +65,36 @@ function init() {
       currentLetter = allLetters[0];
       var acrossID = currentLetter.dataset.clueA;
       var downID = currentLetter.dataset.clueD;
-      acrossClue = ;
-      downClue = ;
+      acrossClue = document.getElementById("across");
+      downClue = document.getElementById("down");
+      formatPuzzle(currentLetter);
 }
 
 // Formats the appearance of the puzzle given the selected puzzle letter
-// function formatPuzzle(puzzleLetter){
+function formatPuzzle(puzzleLetter) {
+      currentLetter = puzzleLetter;
+      for (var i = 0; i <= allLetters.length; i++) {
+            allLetters[i].style.backgroundColor = "";
+            acrossClue = currentLetter.dataset.clueA;
+            acrossClue.style.color = "blue";
+            wordLetters = document.querySelectorAll("currentLetter.dataset.clueA");
+            wordLetters.style.backgroundColor = "rgb(231, 231, 255)";
+      }
 
-// }
+      for (var i = 0; i <= allLetters.length; i++) {
+            allLetters[i].style.backgroundColor = "";
+            downClue = currentLetter.dataset.clueD;
+            downClue.style.color = "red";
+            wordLetters = document.querySelectorAll("currentLetter.dataset.clueD");
+            wordLetters.style.backgroundColor = "rgb(255, 231, 231)";
+      }     
+            if (typeDirection = "right") {
+                  currentLetter.style.backgroundColor = "rgb(191, 191, 255)";
+            } else {
+                  currentLetter.style.backgroundColor = "rgb(255, 191, 191)";
+            }
+     
+}
 
 // Applies keyboard actions to select a letter or modify the puzzle navigation
 // function selectLetter(e){
