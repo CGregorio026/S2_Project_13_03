@@ -155,7 +155,7 @@ function selectLetter(e) {
       var downLetter = document.getElementById(currentLetter.dataset.down);
 
       var userKey = e.keyCode;
-
+      // Gave extensive options to allow the user to move in each direction using the arrow keys, switch the typing direction using the spacebar, remove a character inside the cells, and logged any character presses
       if (userKey === 37) {
             formatPuzzle(leftLetter);
       } else if (userKey === 38) {
@@ -176,13 +176,14 @@ function selectLetter(e) {
                   formatPuzzle(downLetter);
             }
       }
+      // doesn't have an else for the initial if, so prevents any options that we don't want
       e.preventDefault();
 }
 
 // Toggles the typing direction between right and down
 function switchTypeDirection() {
       var typeImage = document.getElementById("directionImg");
-
+      // if the image is pointing to the right, when it is clicked, the image points downward, the typing direction is switched, and the background of the letter is changed to red. Otherwise, it points to the right, the typing direction is right, and the letter turns to blue.
       if (typeDirection === "right") {
             typeDirection = "down";
             typeImage.src = "pc_down.png";
