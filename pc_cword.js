@@ -57,32 +57,38 @@ var acrossClue;
 var downClue;
 var typeDirection = "right";
 
+//loads the init function upon entering the window
 window.onload = init;
 
 // Initializes the puzzle, setting up the event handlers and the variable values
 function init() {
+      //sets the global variable to every crossword cell
       allLetters = document.querySelectorAll("table#crossword span");
       currentLetter = allLetters[0];
+      // These are never used... but they store the value of the letter's clue-a data value.
       var acrossID = currentLetter.dataset.clueA;
       var downID = currentLetter.dataset.clueD;
       acrossClue = document.getElementById(currentLetter.dataset.clueA);
       downClue = document.getElementById(currentLetter.dataset.clueD);
-
+      // This runs the formatPuzzle with the current letter as a parameter 
       formatPuzzle(currentLetter);
-
+      // when the puzzle is moused over, it changes the cursor to a pointer
       for (var i = 0; i < allLetters.length; i++) {
             allLetters[i].style.cursor = "pointer";
             allLetters[i].onmousedown = function (e) {
                   formatPuzzle(e.target);
             };
       }
-
+      // when a key is pressed down it runs the select letter function
       document.onkeydown = selectLetter;
+
 
       var typeImage = document.getElementById("directionImg");
       typeImage.style.cursor = "pointer";
+      // when the image of the hand is clicked, it runs the switch type direction function
       typeImage.onclick = switchTypeDirection;
 
+      // this function checks the data to see if the data of any letter is true. if it is incorrect, then it is highlighted in red using an anonymous function to change it back after 3 seconds (3000 milliseconds)
       document.getElementById("showErrors").onclick = function () {
             for (var i = 0; i < allLetters.length; i++) {
                   if (allLetters[i].textContent !== allLetters[i].dataset.letter) {
@@ -95,7 +101,7 @@ function init() {
                   }
             }
       }
-
+      // when the onclick button is pressed, every data cell is given the value of the data set letter it has.
       document.getElementById("showSolution").onclick = function () {
             for (var i = 0; i < allLetters.length; i++) {
                   allLetters[i].textContent = allLetters[i].dataset.letter;
@@ -112,7 +118,7 @@ function formatPuzzle(puzzleLetter) {
 
       acrossClue.style.color = "";
       downClue.style.color = "";
-
+      // if the data-clue-a isn't undefined (It isn't the same in the dataset), then it does not become highlighted in blue, along with the others in the same dataset.
       if (currentLetter.dataset.clueA !== undefined) {
             acrossClue = document.getElementById(currentLetter.dataset.clueA);
             acrossClue.style.color = "blue";
@@ -143,36 +149,50 @@ function formatPuzzle(puzzleLetter) {
 
 // Applies keyboard actions to select a letter or modify the puzzle navigation
 function selectLetter(e) {
-      var leftLetter = currentLetter.dataset.left;
-      var upLetter = currentLetter.dataset.up;
-      var rightLetter = currentLetter.dataset.right;
-      var downLetter = currentLetter.dataset.down;
+      var leftLetter = document.getElementById(currentLetter.dataset.left);
+      var upLetter = document.getElementById(currentLetter.dataset.up);
+      var rightLetter = document.getElementById(currentLetter.dataset.right);
+      var downLetter = document.getElementById(currentLetter.dataset.down);
 
       var userKey = e.keyCode;
 
-      if (userKey == 37) {
+      if (userKey === 37) {
             formatPuzzle(leftLetter);
-      } else if (userKey == 38) {
+      } else if (userKey === 38) {
             formatPuzzle(upLetter);
-      } else if (userKey == 39 || userKey == 9) {
+      } else if (userKey === 39 || userKey === 9) {
             formatPuzzle(rightLetter);
-      } else if (userKey == 40 || userKey == 13) {
+      } else if (userKey === 40 || userKey === 13) {
             formatPuzzle(downLetter);
-      } else if (userKey == 8 || userKey == 46) {
-            currentLetter = "";
-      } else if (userKey == 32) {
+      } else if (userKey === 8 || userKey === 46) {
+            currentLetter.textContent = "";
+      } else if (userKey === 32) {
             switchTypeDirection();
-      } else if (65 < userKey < 90) {
-            currentLetter = getChar(userKey)
+      } else if (userKey >= 65 && userKey <= 90) {
+            currentLetter.textContent = getChar(userKey);
+            if (typeDirection === "right") {
+                  formatPuzzle(rightLetter);
+            } else {
+                  formatPuzzle(downLetter);
+            }
       }
+      e.preventDefault();
 }
 
 // Toggles the typing direction between right and down
 function switchTypeDirection() {
+      var typeImage = document.getElementById("directionImg");
 
+      if (typeDirection === "right") {
+            typeDirection = "down";
+            typeImage.src = "pc_down.png";
+            currentLetter.style.backgroundColor = "rgb(255, 191, 191)";
+      } else {
+            typeDirection = "right";
+            typeImage.src = "pc_right.png";
+            currentLetter.style.backgroundColor = "rgb(191, 191, 255)";
+      }
 }
-
-
 
 /*====================================================*/
 
